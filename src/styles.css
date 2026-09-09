@@ -1,0 +1,375 @@
+/* Cabin, self-hosted and subset to Latin. Chosen over Gill Sans because the
+   previous stack named a font no webfont was ever loaded for, so most
+   visitors saw Calibri or Trebuchet and Linux users saw a browser default.
+   Cabin is humanist with a Johnston lineage, which keeps the GOV.UK and TfL
+   reference the brand was aiming at, and it is open licensed. */
+@font-face {
+  font-family: "Cabin";
+  src: url("/cabin-var.woff2") format("woff2-variations");
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-band: var(--band);
+  --color-band-foreground: var(--band-foreground);
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-slate-blue: var(--slate-blue);
+  --color-slate-blue-foreground: var(--slate-blue-foreground);
+  --color-teal: var(--teal);
+  --color-teal-foreground: var(--teal-foreground);
+  --color-teal-light: var(--teal-light);
+  --color-text-body: var(--text-body);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-amber: var(--amber);
+  --color-error: var(--error);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+
+  /* Type scale. Every size in the product comes from here. No more inline
+     arbitrary values like text-[13px]. */
+  --text-xs: 0.75rem;      /* 12px  labels, metadata */
+  --text-sm: 0.875rem;     /* 14px  secondary text */
+  --text-base: 1rem;       /* 16px  body */
+  --text-lg: 1.125rem;     /* 18px  question text, card titles */
+  --text-xl: 1.375rem;     /* 22px  section headings */
+  --text-2xl: 1.75rem;     /* 28px  page headings */
+  --text-3xl: 2.5rem;      /* 40px  score display */
+  --font-sans: "Cabin", "Gill Sans MT", Calibri, "Trebuchet MS", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.984 0.001 106.424);
+  --foreground: oklch(0.175 0.019 285.786);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.175 0.019 285.786);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.175 0.019 285.786);
+  --primary: oklch(0.588 0.136 163.06);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.968 0.007 247.896);
+  --secondary-foreground: oklch(0.175 0.019 285.786);
+  --muted: oklch(0.968 0.007 247.896);
+  --muted-foreground: oklch(0.488 0.019 264.364);
+  --accent: oklch(0.968 0.007 247.896);
+  --accent-foreground: oklch(0.175 0.019 285.786);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.929 0.006 264.531);
+  --input: oklch(0.929 0.006 264.531);
+  --ring: oklch(0.588 0.136 163.06);
+
+  --navy: oklch(0.173 0.032 248.3);
+  --navy-foreground: oklch(1 0 0);
+  /* Large dark surfaces: header, closing band, the navy sections on
+     /what-changed. Identical to navy in light mode, but it has to stay dark
+     when the theme flips while --navy goes light for text. */
+  --band: oklch(0.173 0.032 248.3);
+  --band-foreground: oklch(1 0 0);
+  --slate-blue: oklch(0.45 0.04 250);
+  --slate-blue-foreground: oklch(1 0 0);
+  --teal: oklch(0.588 0.136 163.06);
+  --teal-foreground: oklch(1 0 0);
+  --teal-light: oklch(0.953 0.026 163.06);
+  --text-body: oklch(0.175 0.019 285.786);
+  --text-secondary: oklch(0.488 0.019 264.364);
+  /* Darkened from oklch(0.684 …) which measured 2.71:1 against the page
+     background. WCAG 2.2 AA needs 4.5:1 for normal text, and this token is
+     used at 12px in the footer, so it must clear the normal-text bar rather
+     than the large-text one. This value measures 4.63:1 and keeps the
+     slight cool cast of the original. */
+  --text-tertiary: #6B7280;
+  --amber: oklch(0.769 0.188 70.08);
+  --brand: #A81C22;
+  --brand-foreground: #FFFFFF;
+  --error: oklch(0.577 0.245 27.325);
+
+  --chart-1: oklch(0.588 0.136 163.06);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.001 106.424);
+  --sidebar-foreground: oklch(0.175 0.019 285.786);
+  --sidebar-primary: oklch(0.588 0.136 163.06);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.953 0.026 163.06);
+  --sidebar-accent-foreground: oklch(0.175 0.019 285.786);
+  --sidebar-border: oklch(0.929 0.006 264.531);
+  --sidebar-ring: oklch(0.588 0.136 163.06);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 400;
+  }
+}
+
+@layer base {
+  /* Page transitions. 200ms is the ceiling: longer reads as lag rather than
+     polish on a compliance tool people are using under time pressure. */
+  @keyframes rg-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .rg-page {
+    animation: rg-fade-in 180ms ease-out both;
+  }
+
+
+  /* Top-of-viewport loading bar. Three phases, driven by the component:
+     crawl to 88%, complete to 100%, fade out. See RouteProgress.tsx. */
+  @keyframes rg-progress-run {
+    0%   { width: 0%; }
+    55%  { width: 58%; }
+    100% { width: 88%; }
+  }
+
+  @keyframes rg-progress-finish {
+    from { width: 88%; }
+    to   { width: 100%; }
+  }
+
+  .rg-route-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 60;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--brand) 14%, transparent);
+    opacity: 1;
+    transition: opacity 260ms ease-out;
+  }
+
+  .rg-route-progress-bar {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--brand);
+    animation: rg-progress-run 1300ms cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+  }
+
+  /* Completion: finish the sweep, then fade the whole strip away. */
+  .rg-route-progress.is-finishing {
+    opacity: 0;
+  }
+
+  .rg-route-progress.is-finishing .rg-route-progress-bar {
+    animation: rg-progress-finish 300ms ease-out forwards;
+  }
+
+  /* Skeleton placeholders, shaped like the content they stand in for. */
+  @keyframes rg-shimmer {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.45; }
+  }
+
+  .rg-shimmer {
+    animation: rg-shimmer 1.4s ease-in-out infinite;
+  }
+
+
+  /* Reading-remaining rail. The label fades in while scrolling and back out
+     when the reader stops, so it answers the question without sitting in the
+     corner shouting for the whole page. The dots never move. */
+  .rg-reading-label {
+    transition: opacity 200ms ease-out;
+  }
+  .rg-reading-on  { opacity: 1; }
+  .rg-reading-off { opacity: 0; }
+
+  .rg-reading span {
+    transition: background-color 200ms ease-out;
+  }
+
+  /* Some people get motion sickness, and this product is used by people who
+     are stressed and on a phone. Honour the system setting everywhere. */
+  @media (prefers-reduced-motion: reduce) {
+    .rg-page,
+    .rg-shimmer {
+      animation: none;
+    }
+
+    /* Show the bar filled rather than animating it, and still remove it. */
+    .rg-route-progress-bar {
+      animation: none;
+      width: 100%;
+    }
+
+    /* Keep the rail readable rather than fading it in and out. */
+    .rg-reading-label {
+      opacity: 1 !important;
+      transition: none;
+    }
+
+    /* Keep the bar visible so the click still registers, but stop it moving. */
+    .rg-route-progress::after {
+      animation: none;
+      width: 100%;
+      opacity: 0.5;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Dark theme
+   ---------------------------------------------------------------------
+   Every colour on the site already comes from a token, so a dark theme is
+   a second set of values rather than a second stylesheet. Nothing in any
+   component changes.
+
+   Applied by putting data-theme="dark" on <html>. That attribute is set
+   before first paint by a small script in index.html, so a returning
+   reader who prefers dark does not get a white flash first.
+
+   Three things are deliberately not simply inverted:
+
+   * Brand red lightens to #E8656B. #A81C22 on a dark ground measures under
+     3:1, which fails for text, and brand red is typographic on this site.
+   * Navy stops being a background and becomes near-black, because a navy
+     header on a dark page reads as a lighter stripe rather than an anchor.
+   * The status colours lighten rather than invert, so green still reads as
+     green at 4.5:1 on the darker ground.
+   --------------------------------------------------------------------- */
+
+html[data-theme="dark"] {
+  --background: oklch(0.165 0.012 265);
+  --foreground: oklch(0.955 0.004 265);
+  --card: oklch(0.205 0.014 265);
+  --card-foreground: oklch(0.955 0.004 265);
+  --popover: oklch(0.205 0.014 265);
+  --popover-foreground: oklch(0.955 0.004 265);
+  --primary: oklch(0.72 0.13 163.06);
+  --primary-foreground: oklch(0.165 0.012 265);
+  --secondary: oklch(0.245 0.014 265);
+  --secondary-foreground: oklch(0.955 0.004 265);
+  --muted: oklch(0.245 0.014 265);
+  --muted-foreground: oklch(0.72 0.015 265);
+  --accent: oklch(0.265 0.016 265);
+  --accent-foreground: oklch(0.955 0.004 265);
+  --destructive: oklch(0.68 0.19 27.325);
+  --destructive-foreground: oklch(0.165 0.012 265);
+  --border: oklch(0.30 0.014 265);
+  --input: oklch(0.30 0.014 265);
+  --ring: oklch(0.72 0.13 163.06);
+
+  /* --navy is used 642 times as a text colour and 107 as a background, so
+     the text role decides: it goes light. A filled navy button therefore
+     becomes a light button with dark text, which is the correct inversion.
+     Large dark surfaces use --band instead and stay dark. */
+  --navy: oklch(0.955 0.004 265);
+  --navy-foreground: oklch(0.165 0.012 265);
+  --band: oklch(0.125 0.014 265);
+  --band-foreground: oklch(0.955 0.004 265);
+  --slate-blue: oklch(0.62 0.045 250);
+  --slate-blue-foreground: oklch(0.165 0.012 265);
+  --teal: oklch(0.72 0.13 163.06);
+  --teal-foreground: oklch(0.165 0.012 265);
+  --teal-light: oklch(0.28 0.045 163.06);
+
+  --text-body: oklch(0.955 0.004 265);
+  --text-secondary: oklch(0.79 0.012 265);
+  --text-tertiary: oklch(0.66 0.012 265);
+
+  --amber: oklch(0.82 0.16 70.08);
+  /* Lightened from #A81C22, which measures under 3:1 on this ground. */
+  --brand: #E8656B;
+  --brand-foreground: oklch(0.165 0.012 265);
+  --error: oklch(0.70 0.19 27.325);
+
+  --sidebar: oklch(0.185 0.013 265);
+  --sidebar-foreground: oklch(0.955 0.004 265);
+  --sidebar-primary: oklch(0.72 0.13 163.06);
+  --sidebar-primary-foreground: oklch(0.165 0.012 265);
+  --sidebar-accent: oklch(0.265 0.016 265);
+}
+
+/* Photographs and the OS logo are made for a white ground. Knock them back
+   slightly so they do not glare. */
+html[data-theme="dark"] img:not([data-theme-exempt]) {
+  filter: brightness(0.94);
+}
+
+/* No transition on the theme switch itself. A 200ms cross-fade of every
+   colour on the page reads as a fault rather than a flourish. */
+html[data-theme-switching] * {
+  transition: none !important;
+}
+
